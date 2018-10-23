@@ -10,8 +10,8 @@
 
 
 Camera::Camera(){
-    eye = vec3(-3.5, 0, 1);
-    lookAt = vec3(-3.5, 0, 0);
+    eye = vec3(-3.5, 0.2, 0.3);
+    lookAt = vec3(-3.5, 0.2, 0);
     right = vec3(1, 0, 0);
     up = vec3(0, 1, 0);
 }
