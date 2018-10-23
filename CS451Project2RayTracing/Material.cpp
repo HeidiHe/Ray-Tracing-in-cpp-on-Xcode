@@ -85,8 +85,7 @@ vec3 Glass::shade(vec3 normal,
            vec3 powerDensity){
     return vec3(0,0,0);
 }
-    
-    
+
 vec3 Glass::refract(vec3 inDir, vec3 normal) {
     //vec3 perp = -normal * normal.dot(inDir);
     vec3 perp = -normal * normal.dot(inDir);
@@ -116,39 +115,6 @@ float Glass::R(vec3 dir, vec3 n) {
 
 
 
-
-
-//Chess Board------------------------------------------
-void ChessBoard::makeBoard(vec3 position){
-    if(position.x<0 && position.x>-8 && position.z<0 && position.z>-8){
-        if(fmod((int)position.x,2)==fmod((int)position.z,2)){
-            kd = vec3(0,0,0);
-        }else{
-            kd = vec3(1,1,1);
-        }
-    }else{
-        kd = vec3(0.72, 0.72, 0.72);
-    }
-}
-
-vec3 ChessBoard::shade(vec3 normal,
-           vec3 viewDir,
-           vec3 lightDir,
-           vec3 powerDensity){
-    float cosTheta = normal.dot(lightDir);
-    
-    vec3 halfway = (viewDir + lightDir).normalize();
-    
-    vec3 L = kd*powerDensity*fmax(0.0, cosTheta);
-    
-    //        vec3 L = ks*powerDensity*pow((double)fmax(0.0, normal.dot(halfway)),shiness);
-    
-    return L;
-    
-}
-
-
-
 //Stripe------------------------------------------
 void Stripe::makeStripe(vec3 position){
         
@@ -157,8 +123,7 @@ void Stripe::makeStripe(vec3 position){
         }else{
             kd = vec3(1,1,1);
         }
-        
-        
+    
 }
 
 vec3 Stripe::shade(vec3 normal,
@@ -226,52 +191,3 @@ float Wood::snoise(vec3 r) {
     return f / 64.0 + 0.5;
 }
 
-
-
-//Marble------------------------------------------
-Marble::Marble(){
-        scale = 32;
-        turbulence = 50;
-        period = 32;
-        sharpness = 1;
-        kd = vec3(0.96, 0.96, 0.96);
-        ks = vec3(1,1,1);
-        shiness = 1;
-}
-
-
-void Marble::makeMarble(  vec3 position, vec3 normal, vec3 viewDir){
-    float w = position.x * period + pow(snoise(position * scale), sharpness)*turbulence;
-    w = pow(sin(w)*0.5+0.5, 4);
-    kd = (vec3(0.96, 0.96, 0.96) * w + vec3(0.72, 0.72, 0.72) * (1-w)) * normal.dot(viewDir);
-}
-
-
-vec3 Marble::shade(vec3 normal, vec3 viewDir, vec3 lightDir, vec3 powerDensity){
-    
-    float cosTheta = normal.dot(lightDir);
-    
-    vec3 halfway = (viewDir + lightDir).normalize();
-    
-    vec3 L = kd*powerDensity*fmax(0.0, cosTheta)+ ks*powerDensity*pow((double)fmax(0.0, normal.dot(halfway)),shiness);
-    
-    return L;
-}
-
-
-float Marble::snoise(vec3 r) {
-    unsigned int x = 0x0625DF73;
-    unsigned int y = 0xD1B84B45;
-    unsigned int z = 0x152AD8D0;
-    float f = 0;
-    for(int i=0; i<32; i++) {
-        vec3 s(	x/(float)0xffffffff,
-               y/(float)0xffffffff,
-               z/(float)0xffffffff);
-        f += sin(s.dot(r));
-        x = x << 1 | x >> 31;
-        y = y << 1 | y >> 31;
-        z = z << 1 | z >> 31;
-    }
-    return f / 64.0 + 0.5;
-}

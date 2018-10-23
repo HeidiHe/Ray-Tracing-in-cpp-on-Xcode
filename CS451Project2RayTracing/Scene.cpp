@@ -47,8 +47,6 @@ int majorVersion = 3, minorVersion = 0;
 
 Shader *shader = 0;
 
-
-
 Camera camera;
 
 
@@ -70,9 +68,19 @@ public:
         materials.push_back(new DiffuseMaterial(vec3(0,1,0),vec3(0,0,1),0.2));//0
         materials.push_back(new DiffuseMaterial(vec3(0,1,1),vec3(1,1,1),0.9));//1
         materials.push_back(new ChessBoard());//2 chess board
+        
         materials.push_back(new Wood());//3 wood
+        //cylinder and its two closing sides ->3
+        objects.push_back((new ClippedQuadric(materials[3]))->cylinder(1)->transform(mat4x4::scaling(vec3(0.5, 1, 0.5))*mat4x4::translation(vec3(-2, -0.6, -1.5))));
+        objects.push_back((new ClippedQuadric(materials[3]))->cylinder(1)->getFaces()->transform(mat4x4::scaling(vec3(0.5, 1, 0.5))*mat4x4::translation(vec3(-2, -0.6, -1.5))));
+        
         materials.push_back(new Metal(vec3(3.13,2.23,1.76),vec3(0.21,0.485,1.29)));//4 gold
+        
         materials.push_back(new Metal(vec3(3.7,3.11,2.47),vec3(0.15,0.14,0.13)));//5 silver
+        //cone ->7
+        objects.push_back((new ClippedQuadric(materials[5]))->cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.8, 0.5))*mat4x4::translation(vec3(-2, 0.5, -1.5))));
+        
+        
         materials.push_back(new Glass(0.0,1.46));//6 glass
         materials.push_back(new Marble());//7 marble
         materials.push_back(new Stripe());//8 stripe
@@ -90,13 +98,11 @@ public:
         lights.push_back(new PointLight(vec3(10,10,10),vec3(-6,4,0)));
 
         
-        //cylinder and its two closing sides ->3
-        objects.push_back((new ClippedQuadric(materials[3]))->cylinder(1)->transform(mat4x4::scaling(vec3(0.5, 1, 0.5))*mat4x4::translation(vec3(-2, -0.6, -1.5))));
         
-        objects.push_back((new ClippedQuadric(materials[3]))->cylinder(1)->getFaces()->transform(mat4x4::scaling(vec3(0.5, 1, 0.5))*mat4x4::translation(vec3(-2, -0.6, -1.5))));
         
-        //cone ->7
-        objects.push_back((new ClippedQuadric(materials[5]))->cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.8, 0.5))*mat4x4::translation(vec3(-2, 0.5, -1.5))));
+        
+        
+        
         //small cylinder attaching to the cone
         objects.push_back((new ClippedQuadric(materials[5]))->cylinder(1)->transform(mat4x4::scaling(vec3(0.06, 1, 0.06))*mat4x4::translation(vec3(-2, 0.5, -1.5))));
         
@@ -119,7 +125,7 @@ public:
         objects.push_back((new ClippedQuadric(materials[6]))->hyperboloid(3)->getFaces()->transform(mat4x4::scaling(vec3(0.25, 0.3, 0.25))*mat4x4::translation(vec3(-5, -0.6, -1.7))));
 
         //Bottle2
-//        pieces.push_back((new Bottle2(4,2,materials[10]))->transform(
+//      pieces.push_back((new Bottle2(4,2,materials[10]))->transform(
 //                                                    mat4x4::translation(vec3(-1, -0.2, 0))));
         pieces.push_back((new Bottle2(6,2,materials[7]))->transform(mat4x4::scaling(vec3(0.6, 0.8, 0.6))*
                                                             mat4x4::translation(vec3(-1, -0.4, -0.5))));
@@ -141,10 +147,8 @@ public:
             }
         }
         printf("object size: %lu\n", objects.size());
-        
-        
-
 	}
+    
 	~Scene()
 	{
 		// UNCOMMENT THESE WHEN APPROPRIATE
@@ -398,7 +402,6 @@ void onExit()
 }
 
 void onIdle(){
-    camera.Control();
 }
 
 void onKeyboard(unsigned char key, int x, int y)

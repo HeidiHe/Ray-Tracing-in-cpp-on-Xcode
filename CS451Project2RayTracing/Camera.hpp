@@ -28,7 +28,6 @@ class Camera{
 public:
     Camera();
     vec3 getEye();
-    void Control();// Compute ray through pixel at normalized device coordinates.
     vec3 rayDirFromNdc(float x, float y);
 };
 

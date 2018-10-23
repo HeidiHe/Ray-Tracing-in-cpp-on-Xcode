@@ -10,28 +10,7 @@
 
 
 //Item------------------------------------------------
-Item::Item(int row, int col, Material* material): row(row), col(col), material(material){}
-
-
-
-//Pawn------------------------------------------------
-Pawn::Pawn(int row, int col, Material* material):
-head(material), body (material), Item(row,col,material){
-    head.sphere()->transform(
-                             mat4x4::scaling(vec3(0.25, 0.25, 0.25))
-                             *mat4x4::translation(vec3(-row+0.5, 0, -col+0.5)));
-    body.cone(1.5)->transform(
-                              mat4x4::scaling(vec3(0.5, 1.5, 0.5))
-                              *mat4x4::translation(vec3(-row+0.5, 0, -col+0.5))
-                              );
-    allObjects.push_back(&head);
-    allObjects.push_back(&body);
-}
-
-std::vector<Intersectable*> Pawn::getObjects(){
-    return allObjects;
-}
-    
+Item::Item(int row, int col, Material* material): row(row), col(col), material(material){}    
 
 //King------------------------------------------------
 King::King(int row, int col, Material* material):
@@ -73,71 +52,7 @@ std::vector<Intersectable*> King::getObjects(){
 }
 
 
-//Bishop------------------------------------------------
-Bishop::Bishop(int row, int col, Material* material): hyperboloid(material),head(material),hat(material), Item(row,col,material){
-    
-    //        Quadric* clipperSphere = (new Quadric(material))->sphere()->transform(
-    //                                                        mat4x4::scaling(vec3(0.2, 0.5, 0.2)));
-    //
-    //        Quadric* headSphere = (new Quadric(material))->sphere();
-    //
-    //        head.freeClip(clipperSphere, headSphere)->transform(
-    //                                            mat4x4::scaling(vec3(0.3, 0.3, 0.3))*
-    //                                            mat4x4::translation(vec3(-row+0.5, 1, -col+0.5)));
-    head.sphere(3)->transform( mat4x4::scaling(vec3(0.3, 0.4, 0.3))
-                              * mat4x4::translation(vec3(-row+0.5, 0.5, -col+0.5)));
-    hat.sphere()->transform( mat4x4::scaling(vec3(0.1, 0.1, 0.1))
-                            * mat4x4::translation(vec3(-row+0.5, 1.0, -col+0.5)));
-    //body
-    hyperboloid.hyperboloid(3, mat4x4::translation(vec3(0, -1, 0)))
-    ->transform(mat4x4::scaling(vec3(0.15, 0.5, 0.15))*
-                mat4x4::translation(vec3(-row+0.5, 0, -col+0.5)));
-    
-    //        allObjects.push_back(clipperSphere);
-    //        allObjects.push_back(headSphere);
-    allObjects.push_back(&hyperboloid);
-    allObjects.push_back(hyperboloid.getFaces());
-    allObjects.push_back(&hat);
-    allObjects.push_back(&head);
-    //        allObjects.push_back(head.getFaces());
-}
 
-std::vector<Intersectable*> Bishop::getObjects(){
-    return allObjects;
-}
-
-
-//Queen------------------------------------------------
-
-Queen::Queen(int row, int col, Material* material):
-body(material), gown(material),sphere(material),Item(row,col,material){
-    
-    
-    gown.hyperboloid(2)->transform(mat4x4::scaling(vec3(0.3, 0.3, 0.3))
-                                   *mat4x4::translation(vec3(-row+0.5,0.5, -col+0.5)));
-    
-    //body
-    body.hyperboloid(3, mat4x4::translation(vec3(0, -1, 0)))
-    ->transform(mat4x4::scaling(vec3(0.25, 0.7, 0.25))*
-                mat4x4::translation(vec3(-row+0.5, 0, -col+0.5)));
-    
-    //hat
-    sphere.sphere()->transform(
-                               
-                               mat4x4::scaling(vec3(0.15, 0.15, 0.15))
-                               *mat4x4::translation(vec3(-row+0.5, 1.0, -col+0.5))
-                               );
-    
-    allObjects.push_back(&gown);
-    allObjects.push_back(gown.getFaces());
-    allObjects.push_back(&body);
-    allObjects.push_back(body.getFaces());
-    allObjects.push_back(&sphere);
-}
-
-std::vector<Intersectable*> Queen::getObjects(){
-    return allObjects;
-}
 
 
 //Bottle------------------------------------------------
