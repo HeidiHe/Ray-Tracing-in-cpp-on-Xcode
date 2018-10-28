@@ -168,8 +168,8 @@ ClippedQuadric* ClippedQuadric::sphere(float height, mat4x4 location){
     return this;
 }
 
-//1-x2-y2-z2 = 0
 
+//1-x2-y2-z2 = 0
 ClippedQuadric* ClippedQuadric::cylinder(float height, mat4x4 location){
     shape.cylinder();
     clipper.parallelPlanes(height);

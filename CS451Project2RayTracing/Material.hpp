@@ -70,17 +70,6 @@ public:
 
 
 
-//Chess Board Material
-class ChessBoard : public Material{
-    vec3 kd = vec3(0,0,0);
-public:
-    ChessBoard(){};
-    void makeBoard(vec3 position);
-    vec3 shade(vec3 normal, vec3 viewDir, vec3 lightDir, vec3 powerDensity);
-    
-};
-
-
 
 //Stripe Material
 class Stripe : public Material{
@@ -108,23 +97,6 @@ public:
     float snoise(vec3 r);
 };
 
-
-
-//Marble
-class Marble : public Material{
-    float scale;
-    float turbulence;
-    float period;
-    float sharpness;
-    vec3 kd;
-    vec3 ks;
-    float shiness;
-public:
-    Marble();
-    void makeMarble(  vec3 position, vec3 normal, vec3 viewDir);
-    vec3 shade(vec3 normal, vec3 viewDir, vec3 lightDir, vec3 powerDensity);
-    float snoise(vec3 r);
-};
 
 
 #endif /* Material_hpp */
