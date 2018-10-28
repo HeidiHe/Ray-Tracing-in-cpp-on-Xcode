@@ -1,10 +1,6 @@
-//
-//  Camera.cpp
-//  CS451Project2RayTracing
-//
-//  Created by Heidi He on 10/22/18.
-//  Copyright © 2018 Heidi He. All rights reserved.
-//
+
+
+
 
 #include "Camera.hpp"
 

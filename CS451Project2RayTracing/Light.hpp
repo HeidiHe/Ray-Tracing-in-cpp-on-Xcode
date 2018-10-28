@@ -17,16 +17,12 @@
 #include "mat4x4.h"
 #include "util.hpp"
 
-
-class LightSource
-{
+class LightSource {
 public:
-    virtual vec3 getPowerDensityAt ( vec3 x )=0;
-    virtual vec3 getLightDirAt     ( vec3 x )=0;
-    virtual float  getDistanceFrom ( vec3 x )=0;
+    virtual vec3 getPowerDensityAt (vec3 x)=0;
+    virtual vec3 getLightDirAt     (vec3 x)=0;
+    virtual float  getDistanceFrom (vec3 x)=0;
 };
-
-
 
 class DirectionalLight : public LightSource{
     vec3 p;//power density
@@ -38,9 +34,6 @@ public:
     float getDistanceFrom( vec3 x );
 };
 
-
-
-
 class PointLight : public LightSource{
     vec3 p;//power density
     vec3 l;//light point position
@@ -49,7 +42,6 @@ public:
     vec3 getPowerDensityAt( vec3 x );
     vec3 getLightDirAt( vec3 x );
     float getDistanceFrom( vec3 x );
-    
 };
 
 #endif /* LightSource_hpp */

@@ -1,13 +1,8 @@
-//
-//  Shader.cpp
-//  CS451Project2RayTracing
-//
-//  Created by Heidi He on 10/22/18.
-//  Copyright © 2018 Heidi He. All rights reserved.
-//
+
+
+
 
 #include "Shader.hpp"
-
 
 Shader::Shader()
     {
@@ -44,15 +39,13 @@ Shader::Shader()
         
         glShaderSource(vertexShader, 1, &vertexSource, NULL);
         glCompileShader(vertexShader);
-        checkShader(vertexShader, "Vertex shader error");
-        
+
         unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         if (!fragmentShader) { printf("Error in fragment shader creation\n"); exit(1); }
         
         glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
         glCompileShader(fragmentShader);
-        checkShader(fragmentShader, "Fragment shader error");
-        
+
         shaderProgram = glCreateProgram();
         if (!shaderProgram) { printf("Error in shader program creation\n"); exit(1); }
         
@@ -65,7 +58,6 @@ Shader::Shader()
         glBindFragDataLocation(shaderProgram, 0, "fragmentColor");
         
         glLinkProgram(shaderProgram);
-        checkLinking(shaderProgram);
     }
     
 Shader::~Shader(){
@@ -82,4 +74,3 @@ void Shader::UploadSamplerID(){
     glUniform1i(location, samplerUnit);
     glActiveTexture(GL_TEXTURE0 + samplerUnit); 
 }
-

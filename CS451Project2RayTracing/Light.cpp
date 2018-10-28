@@ -6,7 +6,7 @@
 //  Copyright © 2018 Heidi He. All rights reserved.
 //
 
-#include "LightSource.hpp"
+#include "Light.hpp"
 
 
 //Point Light---------------------------------------

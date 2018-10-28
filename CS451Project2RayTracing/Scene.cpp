@@ -33,7 +33,7 @@
 #include "Material.hpp"
 #include "Camera.hpp"
 #include "Shader.hpp"
-#include "LightSource.hpp"
+#include "Light.hpp"
 #include "Intersectable.hpp"
 #include "ray.hpp"
 #include "Item.hpp"
@@ -52,9 +52,8 @@ Shader *shader = 0;
 Camera camera;
 
 
-class Scene
-{
-//	Camera camera;
+class Scene {
+    //	Camera camera;
     std::vector<Intersectable*> objects;
     std::vector<Material*> materials;
     std::vector<LightSource*> lights;
@@ -63,9 +62,7 @@ class Scene
     Metal* metal;
     
 public:
-    
-    Scene()
-	{
+    Scene() {
         //create materials
         materials.push_back(new DiffuseMaterial(vec3(0,1,0),vec3(0,0,1),0.2));//0
         materials.push_back(new DiffuseMaterial(vec3(0,1,1),vec3(1,1,1),0.9));//1
@@ -145,8 +142,7 @@ public:
         
 
 	}
-	~Scene()
-	{
+	~Scene() {
 		// UNCOMMENT THESE WHEN APPROPRIATE
 		for (std::vector<Material*>::iterator iMaterial = materials.begin(); iMaterial != materials.end(); ++iMaterial)
 			delete *iMaterial;
@@ -161,41 +157,35 @@ public:
 
 
 public:
-	Camera& getCamera()
-	{
+	Camera& getCamera() {
 		return camera;
 	}
 
-	vec3 trace(const Ray& ray, int depth)
-	{
+	vec3 trace(const Ray& ray, int depth) {
         int maxDepth = 15;
-        float ee = 0.001;// to eliminate noise
+        float ee = 0.001; // to eliminate noise
         vec3 sum(0,0,0);
 //        GLboolean reflective = false;
 //        GLboolean refractive = false;
         
         Hit hit = firstIntersect(ray);
         
-        
         if(hit.t < 0){
-            //return background
-            return vec3(0.835,0.878,0.949);//dark
+            //return dark background
+            return vec3(0.835,0.878,0.949);
         }
         
         for(unsigned int i = 0; i < lights.size(); i++){
             
             LightSource* curLight = lights[i];
             vec3 lightDir = curLight->getLightDirAt(hit.position);
-            
-            
             Ray ShadowRay(hit.position+hit.normal*ee, lightDir);
-            
             Hit shadowHit = firstIntersect(ShadowRay);
             
             if ((shadowHit.t<0.0)||(curLight->getDistanceFrom(hit.position)<shadowHit.t)){
                 
                 //chess board
-                if(ChessBoard* cb = dynamic_cast<ChessBoard*>(hit.material)){
+                if(ChessBoard* cb = dynamic_cast<ChessBoard*>(hit.material)) {
                     cb->makeBoard(hit.position+hit.normal*ee);
                 }
                 //wood
@@ -210,22 +200,20 @@ public:
                 else if(Stripe* stripe = dynamic_cast<Stripe*>(hit.material)){
                     stripe->makeStripe(hit.position+hit.normal*ee);
                 }
-                
                 sum += hit.material->shade(hit.normal, -ray.dir, lightDir, curLight->getPowerDensityAt(hit.position));
-
             }
         }
         
         if(depth > maxDepth){
-            return vec3(0.835,0.878,0.949);//dark
+            //return dark background
+            return vec3(0.835,0.878,0.949);
         }
         
         //Metal
-        if(Metal* metal = dynamic_cast< Metal*>(hit.material)){
+        if(Metal* metal = dynamic_cast<Metal*>(hit.material)){
             vec3 reflectionDir = metal->reflect(ray.dir, hit.normal);
             Ray reflectedRay(hit.position+hit.normal*ee, reflectionDir );
             sum += trace(reflectedRay, depth+1)*metal->R(ray.dir, hit.normal);
-            //     sum += trace(reflectedRay, depth+1)* R(ray.dir, hit.normal);
         }
         
         if(Glass* glass = dynamic_cast<Glass*>(hit.material)) {
@@ -242,18 +230,12 @@ public:
                 Ray refractedRay(hit.position+hit.normal*ee, refractionDir );
                 sum += trace(refractedRay, depth+1) * glass->T(ray.dir, hit.normal);
             }
-            
         }
-        
-        
 		return sum;
-
-
     }
     
     Hit firstIntersect(Ray ray){
         float tmean = MAXFLOAT;
-        
         Hit curHit;
         
         for(unsigned int i=0; i<objects.size(); i++){
@@ -265,17 +247,11 @@ public:
                 }
             }
         }
-        
         return curHit;
     }
-    
-
 };
 
 Scene scene;
-
-
-
 
 class FrameBuffer {
 	unsigned int textureId;
@@ -294,27 +270,23 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); 
 	}
 
-	void Bind(Shader* s)
-	{
+	void Bind(Shader* s) {
 		s->UploadSamplerID();
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_FLOAT, image);
 	}
 
-	bool ComputeImage()
-	{
+	bool ComputeImage() {
 		static unsigned int iPart = 0;
 
-		if(iPart >= 64)
-			return false;
-		for(int j = iPart; j < windowHeight; j+=64)
-		{
-			for(int i = 0; i < windowWidth; i++)
-			{
+        if(iPart >= 64) {
+            return false;
+        }
+		for(int j = iPart; j < windowHeight; j+=64) {
+			for(int i = 0; i < windowWidth; i++) {
 				float ndcX = (2.0 * i - windowWidth) / windowWidth;
 				float ndcY = (2.0 * j - windowHeight) / windowHeight;
-//				Camera& camera = scene.getCamera();
 				Ray ray = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
 			
 				image[j*windowWidth + i] = scene.trace(ray,0);
@@ -330,8 +302,7 @@ class Screen {
 	unsigned int vao;
 
 public:
-	Screen() 
-	{ 
+	Screen() {
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
@@ -339,14 +310,20 @@ public:
 		glGenBuffers(2, &vbo[0]);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]); 
-		static float vertexCoords[] = { -1, -1,		1, -1,		-1, 1,		1, 1 };
+		static float vertexCoords[] = { -1, -1,
+                                         1, -1,
+                                        -1,  1,
+                                         1,  1  };
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexCoords), vertexCoords, GL_STATIC_DRAW); 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, NULL);   
 
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[1]); 
-		static float vertexTextureCoords[] = { 0, 0,	1, 0,		0, 1,		1, 1 };
+		static float vertexTextureCoords[] = { 0, 0,
+                                               1, 0,
+                                               0, 1,
+                                               1, 1 };
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexTextureCoords), vertexTextureCoords, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(1);  
@@ -381,12 +358,10 @@ void onDisplay( ) {
     glutSwapBuffers(); 
 }
 
-void onInitialization() 
-{
+void onInitialization() {
 	glViewport(0, 0, windowWidth, windowHeight);
 
 	shader = new Shader();
-	
 	screen = new Screen();
 }
 

@@ -15,7 +15,7 @@
 		A615EBC0217DBA65003F3B46 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBBE217DBA65003F3B46 /* Camera.cpp */; };
 		A615EBC3217DBDC3003F3B46 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC2217DBDC3003F3B46 /* util.cpp */; };
 		A615EBC6217DBF7D003F3B46 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC4217DBF7D003F3B46 /* Shader.cpp */; };
-		A615EBC9217DC072003F3B46 /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC7217DC072003F3B46 /* LightSource.cpp */; };
+		A615EBC9217DC072003F3B46 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC7217DC072003F3B46 /* Light.cpp */; };
 		A615EBCC217E2F85003F3B46 /* Intersectable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBCA217E2F85003F3B46 /* Intersectable.cpp */; };
 		A615EBCF217E305A003F3B46 /* ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBCD217E305A003F3B46 /* ray.cpp */; };
 		A615EBD2217E3539003F3B46 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBD0217E3539003F3B46 /* Item.cpp */; };
@@ -51,8 +51,8 @@
 		A615EBC2217DBDC3003F3B46 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 		A615EBC4217DBF7D003F3B46 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		A615EBC5217DBF7D003F3B46 /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
-		A615EBC7217DC072003F3B46 /* LightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightSource.cpp; sourceTree = "<group>"; };
-		A615EBC8217DC072003F3B46 /* LightSource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LightSource.hpp; sourceTree = "<group>"; };
+		A615EBC7217DC072003F3B46 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		A615EBC8217DC072003F3B46 /* Light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Light.hpp; sourceTree = "<group>"; };
 		A615EBCA217E2F85003F3B46 /* Intersectable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersectable.cpp; sourceTree = "<group>"; };
 		A615EBCB217E2F85003F3B46 /* Intersectable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Intersectable.hpp; sourceTree = "<group>"; };
 		A615EBCD217E305A003F3B46 /* ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ray.cpp; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 				A615EBCE217E305A003F3B46 /* ray.hpp */,
 				A615EBCA217E2F85003F3B46 /* Intersectable.cpp */,
 				A615EBCB217E2F85003F3B46 /* Intersectable.hpp */,
-				A615EBC7217DC072003F3B46 /* LightSource.cpp */,
-				A615EBC8217DC072003F3B46 /* LightSource.hpp */,
+				A615EBC7217DC072003F3B46 /* Light.cpp */,
+				A615EBC8217DC072003F3B46 /* Light.hpp */,
 				A615EBC4217DBF7D003F3B46 /* Shader.cpp */,
 				A615EBC5217DBF7D003F3B46 /* Shader.hpp */,
 				A615EBC1217DBBDE003F3B46 /* util.hpp */,
@@ -189,7 +189,7 @@
 			files = (
 				A615EBD2217E3539003F3B46 /* Item.cpp in Sources */,
 				A615EBBD217DAD49003F3B46 /* Material.cpp in Sources */,
-				A615EBC9217DC072003F3B46 /* LightSource.cpp in Sources */,
+				A615EBC9217DC072003F3B46 /* Light.cpp in Sources */,
 				A615EBCC217E2F85003F3B46 /* Intersectable.cpp in Sources */,
 				A615EBC0217DBA65003F3B46 /* Camera.cpp in Sources */,
 				A615EBCF217E305A003F3B46 /* ray.cpp in Sources */,
