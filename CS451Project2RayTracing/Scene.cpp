@@ -80,53 +80,50 @@ public:
         //4 silver------------------------------------------------------------------------
         materials.push_back(new Metal(vec3(3.7,3.11,2.47),vec3(0.15,0.14,0.13)));
         
-//        objects.push_back((new ClippedQuadric(materials[4]))->
-//                          sphere(2)->transform(mat4x4::scaling(vec3(0.7, 0.7, 0.7))*mat4x4::translation(vec3(-4, 0.5, -1.5))));
-//        
-//        //cone ->7
-//        objects.push_back((new ClippedQuadric(materials[4]))->
-//                          cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.7, 0.5))*mat4x4::translation(vec3(-4, 0.5, -1.5))));
-//        //small cylinder attaching to the cone
-//        objects.push_back((new ClippedQuadric(materials[4]))->
-//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.06, 0.25, 0.06))*mat4x4::translation(vec3(-4, 0.55, -1.5))));
-//        //large cylinder attaching to the cone
-//        objects.push_back((new ClippedQuadric(materials[4]))->
-//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.47, 0.8, 0.47))*mat4x4::translation(vec3(-4, -0.6, -1.5))));
 
-//
+
+
 //        //5 glass-----------------------------------------------------------------------
         materials.push_back(new Glass(0.0,1.46));//5 glass
-//        //half hyperboliod
-        objects.push_back((new ClippedQuadric(materials[0]))->
-                          hyperboloid(1.5, mat4x4::translation(vec3(0,0.2,0)))->transform(mat4x4::scaling(vec3(0.4, 1.0, 0.4))*mat4x4::translation(vec3(-2.5, -0.5, -1.5))));
-//
-//        objects.push_back((new ClippedQuadric(materials[5]))->
-//                          hyperboloid(1.5, mat4x4::translation(vec3(0,0.2,0)))->getFaces()->transform(mat4x4::scaling(vec3(0.4, 1.0, 0.4))*mat4x4::translation(vec3(-2.5, -0.5, -2))));
+
 //        
-//
-//        //bottle2
-//        pieces.push_back((new Bottle2(6,2,materials[5]))->transform(mat4x4::scaling(vec3(0.6, 0.8, 0.6))*
-//                                                                    mat4x4::translation(vec3(-1, -0.4, -0.5))));
-//
-//        
-        //Bottle
-        pieces.push_back((new Bottle(3,3,materials[1]))->
-                         transform(mat4x4::scaling(vec3(1.4, 1.1, 1.4))*mat4x4::translation(vec3(-0.5, -0.3, 0.5))));
+//        //Bottle
+//        pieces.push_back((new Bottle(3,3,materials[1]))->
+//                         transform(mat4x4::scaling(vec3(1.4, 1.1, 1.4))*mat4x4::translation(vec3(-0.5, -0.3, 0.5))));
+        
+
 
         materials.push_back(new DiffuseMaterial(vec3(0.835,0.878,0.949),vec3(1,1,1),0.2));//6 light grey
-        materials.push_back(new DiffuseMaterial(vec3(0.78,0.76,0.67),vec3(1,1,1),0.5));//7 grass grey
-        materials.push_back(new DiffuseMaterial(vec3(0.56,0.54,0.46),vec3(1,1,1),0.1));//8
-        materials.push_back(new DiffuseMaterial(vec3(0.34,0.32,0.22),vec3(1,1,1),0.8));//9 dark grey
-        materials.push_back(new DiffuseMaterial(vec3(0.71,0.49,0.43),vec3(1,1,1),0.8));//10 dull red
-        materials.push_back(new DiffuseMaterial(vec3(0.47,0.62,0.80),vec3(1,1,1),0.8));//11 dull dark blue
+        materials.push_back(new DiffuseMaterial(vec3(0.78,0.76,0.67),vec3(1,1,1),0.9));//7 grass grey
+        materials.push_back(new DiffuseMaterial(vec3(1,1,1),vec3(1,1,1),0.1));//8 white
+        materials.push_back(new DiffuseMaterial(vec3(0.34,0.32,0.22),vec3(1,1,1),0.2));//9 dark grey
+        materials.push_back(new DiffuseMaterial(vec3(0.7, 0.64, 0.59),vec3(1,1,1),0.1));//10 rice background
+        materials.push_back(new DiffuseMaterial(vec3(0.18,0.91,0.87),vec3(1,1,1),0.9));//11 green blue
         materials.push_back(new DiffuseMaterial(vec3(1,0,0),vec3(1,1,1),0.8));//12 red
+        
+//        objects.push_back((new ClippedQuadric(materials[4]))->
+//                          hyperboloid(1.5, mat4x4::translation(vec3(0,0.2,0)))->transform(mat4x4::scaling(vec3(0.1, 0.5, 0.1))*mat4x4::translation(vec3(-4, -0.75, -0.8))));//half hyperboliod
 
+        //cone ->7
+//        objects.push_back((new ClippedQuadric(materials[8]))->
+//                          cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.7, 0.5))*mat4x4::translation(vec3(-4, 0.4, -1.5))));
+//        objects.push_back((new ClippedQuadric(materials[8]))->
+//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.06, 0.25, 0.06))*mat4x4::translation(vec3(-4, 0.4, -1.5))));//small cylinder attaching to the cone
+//        objects.push_back((new ClippedQuadric(materials[2]))->
+//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.47, 0.8, 0.47))*mat4x4::translation(vec3(-4, -0.7, -1.5)))); //large cylinder attaching to the cone
+
+        objects.push_back((new Quadric(materials[4]))->sphere()->transform(mat4x4::scaling(vec3(0.5, 0.5, 0.5))*mat4x4::translation(vec3(-2, 0, -1.5))));
+        
+        objects.push_back((new Quadric(materials[5]))->sphere()->transform(mat4x4::scaling(vec3(0.3, 0.3, 0.3))*mat4x4::translation(vec3(-3, 0, -1.5))));
+        
+//        objects.push_back((new Quadric(materials[5]))->sphere()->transform(mat4x4::scaling(vec3(0.2, 0.2, 0.2))*mat4x4::translation(vec3(-3, 0.5, -0.5))));
+        
         
 //        sunlight
 //        lights.push_back( new DirectionalLight(vec3(0.5,0.4,0.3),vec3(0,1,1)));
 //      point light from camera
-        lights.push_back(new PointLight(vec3(10,15,15),vec3(5,2,2))); //light intensity vs light direction
-        //lights.push_back(new PointLight(vec3(10,10,10),vec3(-6,4,0)));
+        lights.push_back(new PointLight(vec3(5,5,5),vec3(-8,2,-1))); //light intensity vs light direction
+        lights.push_back(new PointLight(vec3(3,10,10),vec3(3,7,3)));
         
         
         //planes
@@ -136,7 +133,7 @@ public:
         objects.push_back(new Plane(vec3(-1,0,0),vec3(10,0,0),materials[11]));//right
         objects.push_back(new Plane(vec3(0,0,-1),vec3(0,0,10),materials[12]));//front
 //        plane = new Plane(vec3(0,0,-1),vec3(0,0,10),materials[9]);//front
-        objects.push_back(new Plane(vec3(0,0,1),vec3(0,0,-5),materials[9]));//back //marble //->9
+        objects.push_back(new Plane(vec3(0,0,1),vec3(0,0,-5),materials[12]));//back //marble //->9
         
         for(unsigned int i = 0; i < pieces.size(); i++){
 //            pieces[i]->pushObjects(objects);
@@ -422,7 +419,7 @@ int main(int argc, char * argv[]) {
 #else
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 #endif
-	glutCreateWindow("Ray Casting");
+	glutCreateWindow("Liwei and Heidi's masterpieces");
 
 #if !defined(__APPLE__)
 	glewExperimental = true;	
