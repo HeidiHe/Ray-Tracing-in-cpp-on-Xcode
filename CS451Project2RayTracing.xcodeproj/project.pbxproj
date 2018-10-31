@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DFCCAC22189562A00A1D641 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCCAC02189562A00A1D641 /* Ray.cpp */; };
 		A615EBB3217D69CE003F3B46 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBAF217D69CE003F3B46 /* Scene.cpp */; };
 		A615EBB6217D6A5A003F3B46 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A615EBB5217D6A5A003F3B46 /* OpenGL.framework */; };
 		A615EBB8217D6A5F003F3B46 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A615EBB7217D6A5F003F3B46 /* GLUT.framework */; };
 		A615EBBA217D6A6D003F3B46 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A615EBB9217D6A6D003F3B46 /* libGLEW.2.1.0.dylib */; };
 		A615EBBD217DAD49003F3B46 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBBB217DAD49003F3B46 /* Material.cpp */; };
 		A615EBC0217DBA65003F3B46 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBBE217DBA65003F3B46 /* Camera.cpp */; };
-		A615EBC3217DBDC3003F3B46 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC2217DBDC3003F3B46 /* util.cpp */; };
 		A615EBC6217DBF7D003F3B46 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC4217DBF7D003F3B46 /* Shader.cpp */; };
 		A615EBC9217DC072003F3B46 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBC7217DC072003F3B46 /* Light.cpp */; };
 		A615EBCC217E2F85003F3B46 /* Intersectable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBCA217E2F85003F3B46 /* Intersectable.cpp */; };
-		A615EBCF217E305A003F3B46 /* ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBCD217E305A003F3B46 /* ray.cpp */; };
 		A615EBD2217E3539003F3B46 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A615EBD0217E3539003F3B46 /* Item.cpp */; };
 /* End PBXBuildFile section */
 
@@ -34,12 +33,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0DFCCAB82189519200A1D641 /* mathop */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mathop; sourceTree = "<group>"; };
+		0DFCCAC02189562A00A1D641 /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
+		0DFCCAC12189562A00A1D641 /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		A615EBA4217D69AD003F3B46 /* CS451Project2RayTracing */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CS451Project2RayTracing; sourceTree = BUILT_PRODUCTS_DIR; };
-		A615EBAE217D69CE003F3B46 /* mat4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat4x4.h; sourceTree = "<group>"; };
 		A615EBAF217D69CE003F3B46 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
-		A615EBB0217D69CE003F3B46 /* vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec2.h; sourceTree = "<group>"; };
-		A615EBB1217D69CE003F3B46 /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
-		A615EBB2217D69CE003F3B46 /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
 		A615EBB5217D6A5A003F3B46 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		A615EBB7217D6A5F003F3B46 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		A615EBB9217D6A6D003F3B46 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = "glew-2.1.0/lib/libGLEW.2.1.0.dylib"; sourceTree = "<group>"; };
@@ -48,15 +46,12 @@
 		A615EBBE217DBA65003F3B46 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		A615EBBF217DBA65003F3B46 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		A615EBC1217DBBDE003F3B46 /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
-		A615EBC2217DBDC3003F3B46 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 		A615EBC4217DBF7D003F3B46 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		A615EBC5217DBF7D003F3B46 /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		A615EBC7217DC072003F3B46 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
 		A615EBC8217DC072003F3B46 /* Light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Light.hpp; sourceTree = "<group>"; };
 		A615EBCA217E2F85003F3B46 /* Intersectable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersectable.cpp; sourceTree = "<group>"; };
 		A615EBCB217E2F85003F3B46 /* Intersectable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Intersectable.hpp; sourceTree = "<group>"; };
-		A615EBCD217E305A003F3B46 /* ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ray.cpp; sourceTree = "<group>"; };
-		A615EBCE217E305A003F3B46 /* ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ray.hpp; sourceTree = "<group>"; };
 		A615EBD0217E3539003F3B46 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
 		A615EBD1217E3539003F3B46 /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,27 +90,23 @@
 		A615EBA6217D69AD003F3B46 /* CS451Project2RayTracing */ = {
 			isa = PBXGroup;
 			children = (
-				A615EBAE217D69CE003F3B46 /* mat4x4.h */,
+				0DFCCAB82189519200A1D641 /* mathop */,
 				A615EBAF217D69CE003F3B46 /* Scene.cpp */,
 				A615EBD0217E3539003F3B46 /* Item.cpp */,
 				A615EBD1217E3539003F3B46 /* Item.hpp */,
-				A615EBCD217E305A003F3B46 /* ray.cpp */,
-				A615EBCE217E305A003F3B46 /* ray.hpp */,
 				A615EBCA217E2F85003F3B46 /* Intersectable.cpp */,
 				A615EBCB217E2F85003F3B46 /* Intersectable.hpp */,
+				0DFCCAC02189562A00A1D641 /* Ray.cpp */,
+				0DFCCAC12189562A00A1D641 /* Ray.hpp */,
 				A615EBC7217DC072003F3B46 /* Light.cpp */,
 				A615EBC8217DC072003F3B46 /* Light.hpp */,
 				A615EBC4217DBF7D003F3B46 /* Shader.cpp */,
 				A615EBC5217DBF7D003F3B46 /* Shader.hpp */,
 				A615EBC1217DBBDE003F3B46 /* util.hpp */,
-				A615EBC2217DBDC3003F3B46 /* util.cpp */,
 				A615EBBE217DBA65003F3B46 /* Camera.cpp */,
 				A615EBBF217DBA65003F3B46 /* Camera.hpp */,
 				A615EBBB217DAD49003F3B46 /* Material.cpp */,
 				A615EBBC217DAD49003F3B46 /* Material.hpp */,
-				A615EBB0217D69CE003F3B46 /* vec2.h */,
-				A615EBB1217D69CE003F3B46 /* vec3.h */,
-				A615EBB2217D69CE003F3B46 /* vec4.h */,
 			);
 			path = CS451Project2RayTracing;
 			sourceTree = "<group>";
@@ -191,10 +182,9 @@
 				A615EBBD217DAD49003F3B46 /* Material.cpp in Sources */,
 				A615EBC9217DC072003F3B46 /* Light.cpp in Sources */,
 				A615EBCC217E2F85003F3B46 /* Intersectable.cpp in Sources */,
+				0DFCCAC22189562A00A1D641 /* Ray.cpp in Sources */,
 				A615EBC0217DBA65003F3B46 /* Camera.cpp in Sources */,
-				A615EBCF217E305A003F3B46 /* ray.cpp in Sources */,
 				A615EBB3217D69CE003F3B46 /* Scene.cpp in Sources */,
-				A615EBC3217DBDC3003F3B46 /* util.cpp in Sources */,
 				A615EBC6217DBF7D003F3B46 /* Shader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

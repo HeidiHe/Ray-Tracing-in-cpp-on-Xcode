@@ -1,25 +1,13 @@
-//
-//  Item.hpp
-//  CS451Project2RayTracing
-//
-//  Created by Heidi He on 10/22/18.
-//  Copyright © 2018 Heidi He. All rights reserved.
-//
+/*
+ * File: Item.hpp
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+ */
 
-#ifndef Item_hpp
-#define Item_hpp
-
-#include <stdio.h>
-#include <stdio.h>
-#include "vec3.h"
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
-#include "mat4x4.h"
 #include "util.hpp"
 
 #include "Material.hpp"
-#include "ray.hpp"
 #include "Intersectable.hpp"
 
 class Item{
@@ -106,5 +94,3 @@ public:
     Bottle2* transform(mat4x4 t);
 };
 
-
-#endif /* Item_hpp */

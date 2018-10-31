@@ -1,11 +1,14 @@
-
-
-
+/*
+ * File: Shader.cpp
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+ */
 
 #include "Shader.hpp"
 
-Shader::Shader()
-    {
+/* constructor of Shader */
+Shader::Shader() {
         const char *vertexSource = "\n\
         #version 150 \n\
         precision highp float; \n\
@@ -59,15 +62,18 @@ Shader::Shader()
         
         glLinkProgram(shaderProgram);
     }
-    
+
+/* deconstruct the Shader classs */
 Shader::~Shader(){
     if(shaderProgram) glDeleteProgram(shaderProgram);
 }
-    
+
+/* run the Shader on GPU */
 void Shader::Run(){
     if(shaderProgram) glUseProgram(shaderProgram);
 }
 
+/* upload sampler ID */
 void Shader::UploadSamplerID(){
     int samplerUnit = 0; 
     int location = glGetUniformLocation(shaderProgram, "samplerUnit");

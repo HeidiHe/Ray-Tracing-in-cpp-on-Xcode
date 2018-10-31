@@ -1,11 +1,17 @@
+/*
+ * File: vec4.h
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+s */
+
 #pragma once
-
 #include <math.h>
-
 #include "vec2.h"
 #include "vec3.h"
 #include "vec4.h"
 
+/* 4D vector class */
 class vec4 {
 public:
 	union{
@@ -27,6 +33,7 @@ public:
 
 	vec4(float x, float y, float z, float w):x(x),y(y),z(z),w(w){}
 
+    /* -------------------- 4D vector operators -------------------- */
 	vec4& operator+=(const vec4& o) {
 		x += o.x;
 		y += o.y;
@@ -100,24 +107,28 @@ public:
 		return vec4(-x, -y, -z, +w);
 	}
 
+    /* get the distance between this 4D vector and another 4D vector */
 	float distance(const vec4& o) const {
 		return (*this - o).norm();
 	}
 
+    /* get the dot product of this 4D vector and another 4D vector */
 	float dot(const vec4& o) const {
 		return x * o.x + y * o.y + z * o.z + w * o.w;
 	}
 
+    /* get the norm of the 4D vector */
 	float norm() const {
 		return sqrtf( this->dot(*this));
 	}
 
+    /* get the 2 norm of the 4D vector */
 	float norm2() const {
 		return this->dot(*this);
 	}
 
+    /* normalize the 4D vector */
 	vec4 normalize() const {
 		return *this / norm();
 	}
-
 };

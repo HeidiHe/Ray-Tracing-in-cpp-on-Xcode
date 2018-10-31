@@ -1,10 +1,9 @@
-//
-//  Item.cpp
-//  CS451Project2RayTracing
-//
-//  Created by Heidi He on 10/22/18.
-//  Copyright © 2018 Heidi He. All rights reserved.
-//
+/*
+ * File: Item.cpp
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+ */
 
 #include "Item.hpp"
 

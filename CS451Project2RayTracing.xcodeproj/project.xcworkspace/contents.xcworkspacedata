@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CS451Project2RayTracing.xcodeproj">
+      location = "group:/Users/liweijiang/Desktop/CS451Project2RayTracing/CS451Project2RayTracing/Ray.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/liweijiang/Desktop/CS451Project2RayTracing/CS451Project2RayTracing/Ray.hpp">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

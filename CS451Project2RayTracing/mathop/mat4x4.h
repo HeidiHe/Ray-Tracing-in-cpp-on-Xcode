@@ -1,16 +1,20 @@
-#pragma once
+/*
+ * File: mat4x4.h
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+ */
 
+#pragma once
 #include <math.h>
 #include "vec4.h"
 #include "vec3.h"
 
-class mat4x4
-{
+/* 4x4 matrix class */
+class mat4x4 {
 public:
-	union
-	{
-		struct
-		{
+	union {
+		struct {
 			float        _00, _01, _02, _03;
 			float        _10, _11, _12, _13;
 			float        _20, _21, _22, _23;
@@ -40,133 +44,122 @@ public:
 	{
 	}
 
-	mat4x4 elementwiseProduct(const mat4x4& o) const
-	{
+	mat4x4 elementwiseProduct(const mat4x4& o) const {
 		mat4x4 r;
 		for(int i=0;i<16;i++)
 			r.l[i] = l[i] * o.l[i];
 		return r;
 	}
 
-	mat4x4 operator+(const mat4x4& o) const
-	{
+    /* -------------------- 4x4 matrix operators -------------------- */
+	mat4x4 operator+(const mat4x4& o) const {
 		mat4x4 r;
 		for(int i=0;i<16;i++)
 			r.l[i] = l[i] + o.l[i];
 		return r;
 	}
 
-	mat4x4 operator-(const mat4x4& o) const
-	{
+	mat4x4 operator-(const mat4x4& o) const {
 		mat4x4 r;
 		for(int i=0;i<16;i++)
 			r.l[i] = l[i] - o.l[i];
 		return r;
 	}
 
-	mat4x4& assignElementwiseProduct(const mat4x4& o)
-	{
+	mat4x4& assignElementwiseProduct(const mat4x4& o) {
 		for(int i=0;i<16;i++)
 			l[i] *= o.l[i];
 		return *this;
 	}
 
-	mat4x4& operator*=(float s )
-	{
+	mat4x4& operator*=(float s ) {
 		for(int i=0;i<16;i++)
 			l[i] *= s;
 		return *this;
 	}
 
-	mat4x4& operator/=(float s )
-	{
+	mat4x4& operator/=(float s ) {
 		float is = 1 / s;
 		for(int i=0;i<16;i++)
 			l[i] *= is;
 		return *this;
 	}
 
-	mat4x4& operator+=(const mat4x4& o)
-	{
+	mat4x4& operator+=(const mat4x4& o) {
 		for(int i=0;i<16;i++)
 			l[i] += o.l[i];
 		return *this;
 	}
 
-	mat4x4& operator-=(const mat4x4& o)
-	{
+	mat4x4& operator-=(const mat4x4& o) {
 		for(int i=0;i<16;i++)
 			l[i] -= o.l[i];
 		return *this;
 	}
 
-	mat4x4 mul(const mat4x4& o) const
-	{
-		mat4x4 product;
-
-		for (int r=0;r<4;r++)
-			for (int c=0;c<4;c++)
-		        product.m[r][c] = 
-		            m[r][0] * o.m[0][c] +
-		            m[r][1] * o.m[1][c] +
-		            m[r][2] * o.m[2][c] +
-		            m[r][3] * o.m[3][c];
-
-		return product;
-	}
-
-	mat4x4 operator<<(const mat4x4& o) const
-	{
+	mat4x4 operator<<(const mat4x4& o) const {
 		return mul(o);
 	}
 
-	mat4x4& operator <<=(const mat4x4& o)
-	{
+	mat4x4& operator <<=(const mat4x4& o) {
 		*this = *this << o;
 		return *this;
 	}
 
-	mat4x4 operator*(const mat4x4& o) const
-	{
+	mat4x4 operator*(const mat4x4& o) const {
 		return mul(o);
 	}
 
-	mat4x4& operator*=(const mat4x4& o)
-	{
+	mat4x4& operator*=(const mat4x4& o) {
 		*this = *this * o;
 		return *this;
 	}
+    
+    /* multiply the 4x4 matrix by another 4x4 matrix */
+    mat4x4 mul(const mat4x4& o) const {
+        mat4x4 product;
+        
+        for (int r=0;r<4;r++)
+            for (int c=0;c<4;c++)
+                product.m[r][c] =
+                m[r][0] * o.m[0][c] +
+                m[r][1] * o.m[1][c] +
+                m[r][2] * o.m[2][c] +
+                m[r][3] * o.m[3][c];
+        
+        return product;
+    }
+    
 
-	vec4 mul(const vec4& v) const
-	{
-		return vec4( v.dot( *(vec4*)m[0] ), v.dot( *(vec4*)m[1] ), v.dot( *(vec4*)m[2] ), v.dot( *(vec4*)m[3] ) );
-	}
-
-	vec4 transform(const vec4& v) const
-	{
-		return vec4( 
-			_00 * v.x + _10 * v.y + _20 * v.z + _30 * v.w,
-			_01 * v.x + _11 * v.y + _21 * v.z + _31 * v.w,
-			_02 * v.x + _12 * v.y + _22 * v.z + _32 * v.w,
-			_03 * v.x + _13 * v.y + _23 * v.z + _33 * v.w
-			);
-	}
-
-	vec4 operator*(const vec4& v) const
-	{
+	vec4 operator*(const vec4& v) const {
 		return mul(v);
 	}
 
-	mat4x4 operator*(float s) const
-	{
+	mat4x4 operator*(float s) const {
 		mat4x4 r;
 		for(int i=0;i<16;i++)
 			r.l[i] = l[i]*s;
 		return r;
 	}
+    
+    /* multiply the 4x4 matrix by a 4D vector */
+    vec4 mul(const vec4& v) const {
+        return vec4( v.dot( *(vec4*)m[0] ), v.dot( *(vec4*)m[1] ), v.dot( *(vec4*)m[2] ), v.dot( *(vec4*)m[3] ) );
+    }
+    
+    
+    /* transform the 4x4 matrix by a 4D vector */
+    vec4 transform(const vec4& v) const {
+        return vec4(
+                    _00 * v.x + _10 * v.y + _20 * v.z + _30 * v.w,
+                    _01 * v.x + _11 * v.y + _21 * v.z + _31 * v.w,
+                    _02 * v.x + _12 * v.y + _22 * v.z + _32 * v.w,
+                    _03 * v.x + _13 * v.y + _23 * v.z + _33 * v.w
+                    );
+    }
 
-	static const mat4x4 identity()
-	{
+    /* transform the 4x4 matrix by a 4D vector */
+	static const mat4x4 identity() {
 		return mat4x4(
 			1, 0, 0, 0,
 			0, 1, 0, 0,
@@ -174,8 +167,8 @@ public:
 			0, 0, 0, 1);
 	}
 
-	static mat4x4 scaling(const vec3& factors)
-	{
+    /* scale the 4x4 matrix by a 3D factor vector */
+	static mat4x4 scaling(const vec3& factors) {
 	    mat4x4 s = identity();
 		s._00 = factors.x;
 		s._11 = factors.y;
@@ -184,8 +177,8 @@ public:
 		return s;
 	}
 
-	static mat4x4 translation(const vec3& offset)
-	{
+    /* translation the 4x4 matrix by a 3D offset vector */
+	static mat4x4 translation(const vec3& offset) {
 	    mat4x4 t = identity();
 		t._30 = offset.x;
 		t._31 = offset.y;
@@ -193,8 +186,8 @@ public:
 		return t;
 	}
 
-	static mat4x4 rotation(const vec3& axis, float angle)
-	{
+    /* rotate the 4x4 matrix by a 3D axis vector with a specified angle */
+	static mat4x4 rotation(const vec3& axis, float angle) {
 	    mat4x4 r = identity();
 		
 	    float s = sin(angle);
@@ -202,8 +195,10 @@ public:
 	    float t = 1 - c;
 		
 		float axisLength = axis.norm();
-		if(axisLength == 0.0f)
-			return identity();
+        if(axisLength == 0.0f) {
+            return identity();
+        }
+			
 		vec3 ax = axis * (1.0f / axisLength);
 	
 	    float& x = ax.x;
@@ -225,8 +220,8 @@ public:
 	    return r;
 	}
 
-	mat4x4 transpose() const
-	{
+    /* transpose the 4x4 matrix */
+	mat4x4 transpose() const {
 		return mat4x4(
 			_00, _10, _20, _30,
 			_01, _11, _21, _31,
@@ -234,8 +229,8 @@ public:
 			_03, _13, _23, _33);
 	}
 
-	mat4x4 _invert() const
-	{
+    /* helper method to get the inversion of the 4x4 mstrix */
+	mat4x4 _invert() const {
 		float det;
 		float d10, d20, d21, d31, d32, d03;
 		mat4x4 inv;
@@ -263,8 +258,7 @@ public:
 		if (det == 0.0) {
 			return identity();
 		}
-		else
-		{
+		else {
 		   float invDet = 1.0 / det;
 		   /* Compute rest of inverse. */
 		   inv.l[0] *= invDet;
@@ -299,12 +293,11 @@ public:
 		}
 	}
 
-	mat4x4 invert() const
-	{
+    /* get the inversion of the 4x4 matrix */
+	mat4x4 invert() const {
 		register float det;
 
-		if( _03 != 0.0f || _13 != 0.0f || _23 != 0.0f || _33 != 1.0f )
-		{
+		if( _03 != 0.0f || _13 != 0.0f || _23 != 0.0f || _33 != 1.0f ) {
 		   return _invert();
 		}
 
@@ -319,13 +312,11 @@ public:
 		det = _00 * inv.l[0] + _10 * inv.l[1] + _20 * inv.l[2];
 
 		/* Run singularity test. */
-		if (det == 0.0f)
-		{
+		if (det == 0.0f) {
 		   /* printf("invert_mat4x4: Warning: Singular mat4x4.\n"); */
 		   return identity();
 		}
-		else
-		{
+		else {
 		   float d10, d20, d21, d31, d32, d03;
 		   register float im00, im10, im20, im30;
 
@@ -368,16 +359,13 @@ public:
 		   return inv;
 		}
 	}
-
 };
 
-inline vec4 operator*(const vec4& v, const mat4x4& m)
-{
-	return m.transform(v);
+inline vec4 operator*(const vec4& v, const mat4x4& m) {
+    return m.transform(v);
 }
 
-inline const vec4& operator*=(vec4& v, const mat4x4& m)
-{
-	v = m.transform(v);
-	return v;
+inline const vec4& operator*=(vec4& v, const mat4x4& m) {
+    v = m.transform(v);
+    return v;
 }

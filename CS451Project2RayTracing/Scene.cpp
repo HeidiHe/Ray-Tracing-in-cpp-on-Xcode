@@ -1,33 +1,10 @@
+/*
+ * File: Scene.cpp
+ * F18 CS451 Project 2
+ * Names: Liwei Jiang, Heidi He
+ * Date: 10/10/2018
+ */
 
-//  Scene.cpp
-//  CS451Project2RayTracing
-//
-//  Created by Heidi He on 10/20/18.
-//  Copyright © 2018 Heidi He. All rights reserved.
-
-#define _USE_MATH_DEFINES
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#if defined(__APPLE__)
-#include <GLUT/GLUT.h>
-#include <OpenGL/gl3.h>
-#include <OpenGL/glu.h>
-#else
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-#include <windows.h>
-#endif
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#endif
-
-
-#include <vector>
-#include "vec3.h"
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
-#include "mat4x4.h"
 
 #include "util.hpp"
 
@@ -36,7 +13,7 @@
 #include "Shader.hpp"
 #include "Light.hpp"
 #include "Intersectable.hpp"
-#include "ray.hpp"
+#include "Ray.hpp"
 #include "Item.hpp"
 
 
