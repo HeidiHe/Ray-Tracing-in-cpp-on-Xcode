@@ -13,14 +13,14 @@
 #include "Item.hpp"
 
 const unsigned int windowWidth = 800, windowHeight = 800;
-bool keyboardState[256];
 int majorVersion = 3, minorVersion = 0;
 Shader *shader = 0;
 Camera camera;
 
 /* Scene class */
 class Scene {
-    std::vector<Intersectable*> objects;
+    std::vector<Intersectable*> snowman;
+    std::vector<Intersectable*> environment;
     std::vector<Material*> materials;
     std::vector<LightSource*> lights;
     std::vector<Item*> pieces;
@@ -29,56 +29,64 @@ class Scene {
 public:
     /* constructor of scene */
     Scene(){
-        // [0] create materials
-        materials.push_back(new DiffuseMaterial(vec3(0,1,0), vec3(0,0,1), 0.2));
-        // [1]
-        materials.push_back(new DiffuseMaterial(vec3(0,1,1), vec3(1,1,1), 0.9));
+        // create materials
+        // [0] green
+        materials.push_back(new DiffuseMaterial(vec3(0, 1, 0), vec3(0, 0, 1), 0.2));
+        // [1] black
+        materials.push_back(new DiffuseMaterial(vec3(0, 1, 1), vec3(1, 1, 1), 0.9));
         // [2] wood material
         materials.push_back(new Wood());
         // [3] gold
-        materials.push_back(new Metal(vec3(3.13,2.23,1.76), vec3(0.21,0.485,1.29)));
+        materials.push_back(new Metal(vec3(3.13, 2.23, 1.76), vec3(0.21, 0.485, 1.29)));
         // [4] silver
-        materials.push_back(new Metal(vec3(3.7,3.11,2.47), vec3(0.15,0.14,0.13)));
+        materials.push_back(new Metal(vec3(3.7, 3.11, 2.47), vec3(0.15, 0.14, 0.13)));
         // [5] glass
-        materials.push_back(new Glass(0.0,1.46));
+        materials.push_back(new Glass(0.0, 1.46));
         // [6] light grey
-        materials.push_back(new DiffuseMaterial(vec3(0.835,0.878,0.949), vec3(1,1,1),0.2));
+        materials.push_back(new DiffuseMaterial(vec3(0.835, 0.878, 0.949), vec3(1, 1, 1), 0.2));
         // [7] grass grey
-        materials.push_back(new DiffuseMaterial(vec3(0.78,0.76,0.67), vec3(1,1,1),0.9));
+        materials.push_back(new DiffuseMaterial(vec3(0.78, 0.76, 0.67), vec3(1, 1, 1), 0.9));
         // [8] white
-        materials.push_back(new DiffuseMaterial(vec3(1,1,1), vec3(1,1,1),0.1));
+        materials.push_back(new DiffuseMaterial(vec3(1, 1, 1), vec3(1, 1, 1), 0.1));
         // [9] dark grey
-        materials.push_back(new DiffuseMaterial(vec3(0.34,0.32,0.22), vec3(1,1,1),0.2));
-        // [10] rice background
-        materials.push_back(new DiffuseMaterial(vec3(0.7, 0.64, 0.59), vec3(1,1,1),0.1));
+        materials.push_back(new DiffuseMaterial(vec3(0.34, 0.32, 0.22), vec3(1, 1, 1), 0.2));
+        // [10] rice
+        materials.push_back(new DiffuseMaterial(vec3(0.7, 0.64, 0.59), vec3(1, 1, 1), 0.1));
         // [11] green blue
-        materials.push_back(new DiffuseMaterial(vec3(0.18,0.91,0.87), vec3(1,1,1),0.9));
+        materials.push_back(new DiffuseMaterial(vec3(0.18, 0.91, 0.87), vec3(1, 1, 1), 0.9));
         // [12] red
-        materials.push_back(new DiffuseMaterial(vec3(1,0,0),vec3(1,1,1),0.8));
+        materials.push_back(new DiffuseMaterial(vec3(1, 0, 0), vec3(1, 1, 1), 0.8));
+        // [13] blue
+        materials.push_back(new DiffuseMaterial(vec3(0.28, 0.63, 0.98), vec3(1, 1, 1), 0.8));
+        // [14] yellow
+        materials.push_back(new DiffuseMaterial(vec3(0.98, 0.96, 0), vec3(1, 1, 1), 0.8));
         
-        /* ----------------------------------------------- create objects and push them into the stack ----------------------------------------------- */
-        objects.push_back((new Quadric(materials[1]))->sphere()->transform(mat4x4::scaling(vec3(0.5, 0.5, 0.5)) * mat4x4::translation(vec3(-2, 0, -1.5))));
-        objects.push_back((new Quadric(materials[1]))->sphere()->transform(mat4x4::scaling(vec3(0.3, 0.3, 0.3)) * mat4x4::translation(vec3(-3.5, 0, -1.5))));
-
-        // objects.push_back((new Quadric(materials[5]))->sphere()->transform(mat4x4::scaling(vec3(0.3, 0.3, 0.3)) * mat4x4::translation(vec3(-3, 0, -1.5))));
+        /* ------------------------------------- create objects and push them into the stack ----------------------------------- */
+        // body
+        snowman.push_back((new Quadric(materials[8]))->sphere()->transform(mat4x4::scaling(vec3(0.5, 0.5, 0.5)) *
+                                                                           mat4x4::translation(vec3(-3, -0.4, -1.3))    ));
+        // head
+        snowman.push_back((new Quadric(materials[8]))->sphere()->transform(mat4x4::scaling(vec3(0.3, 0.3, 0.3)) *
+                                                                           mat4x4::translation(vec3(-3, 0.25, -1))  ));
+        // hat
+        snowman.push_back((new ClippedQuadric(materials[12]))->cone(1)->transform(mat4x4::scaling(vec3(0.4, 0.4, 0.4)) *
+                                                                                  mat4x4::translation(vec3(-3, 0.8, -1))    ));
+        // arms
+        snowman.push_back((new ClippedQuadric(materials[11]))->hyperboloid(2)->transform(mat4x4::scaling(vec3(0.1, 0.8, 0.1)) *
+                                                                                         mat4x4::rotation(vec3(1, 1, 1), -2) *
+                                                                                         mat4x4::translation(vec3(-3, -0.2, -1))    ));
         
-        // point light from camera
-        // light intensity vs light direction
+        // environment
+        environment.push_back(new Plane(vec3(0, 1, 0), vec3(0, -1, 0), materials[13])); // bottom
+        environment.push_back(new Plane(vec3(0, -1, 0), vec3(0, 10, 0), materials[9])); // top
+        environment.push_back(new Plane(vec3(1, 0, 0), vec3(-10, 0, 0), materials[10])); // left
+        environment.push_back(new Plane(vec3(-1, 0, 0), vec3(10, 0, 0), materials[11])); // right
+        environment.push_back(new Plane(vec3(0, 0, -1), vec3(0, 0, 10), materials[12])); // front
+        environment.push_back(new Plane(vec3(0, 0, 1), vec3(0, 0, -5), materials[14])); // back
+        
+        /* ------------------------------------- create lights and push them into the stack ----------------------------------- */
         lights.push_back(new PointLight(vec3(5, 5, 5), vec3(-2, 2, 2)));
-//        lights.push_back(new DirectionalLight(vec3(5, 0, 5), vec3(1, 2, 0)));
-//        lights.push_back(new PointLight(vec3(3,10,10), vec3(3,7,3)));
-        
-        // planes
-        objects.push_back(new Plane(vec3(0,1,0), vec3(0,-1,0), materials[12])); // bottom
-        objects.push_back(new Plane(vec3(0,-1,0), vec3(0,10,0), materials[9])); // top
-        objects.push_back(new Plane(vec3(1,0,0), vec3(-10,0,0), materials[10])); // left
-        objects.push_back(new Plane(vec3(-1,0,0), vec3(10,0,0), materials[11])); // right
-        objects.push_back(new Plane(vec3(0,0,-1), vec3(0,0,10), materials[12])); // front
-        objects.push_back(new Plane(vec3(0,0,1), vec3(0,0,-5), materials[12])); // back marble
-        
-    
-        
-        
+        lights.push_back(new PointLight(vec3(5, 5, 5), vec3(1, 3, 3)));
     }
     
     /* delete the scene object */
@@ -89,7 +97,10 @@ public:
         for (std::vector<Item*>::iterator iPiece = pieces.begin(); iPiece != pieces.end(); ++iPiece) {
             delete *iPiece;
         }
-        for (std::vector<Intersectable*>::iterator iObject = objects.begin(); iObject != objects.end(); ++iObject) {
+        for (std::vector<Intersectable*>::iterator iObject = snowman.begin(); iObject != snowman.end(); ++iObject) {
+            delete *iObject;
+        }
+        for (std::vector<Intersectable*>::iterator iObject = environment.begin(); iObject != environment.end(); ++iObject) {
             delete *iObject;
         }
         for (std::vector<LightSource*>::iterator iLight = lights.begin(); iLight != lights.end(); ++iLight) {
@@ -171,8 +182,19 @@ public:
         float tmean = MAXFLOAT;
         Hit curHit;
         
-        for(unsigned int i = 0; i < objects.size(); i++) {
-            Hit newHit = objects[i]->intersect(ray);
+        // hit ray on the snowman
+        for(unsigned int i = 0; i < snowman.size(); i++) {
+            Hit newHit = snowman[i]->intersect(ray);
+            if (newHit.t > 0.0) {
+                if( newHit.t < tmean ) {
+                    tmean = newHit.t;
+                    curHit = newHit;
+                }
+            }
+        }
+        // hit ray on the environment
+        for(unsigned int i = 0; i < environment.size(); i++) {
+            Hit newHit = environment[i]->intersect(ray);
             if (newHit.t > 0.0) {
                 if( newHit.t < tmean ) {
                     tmean = newHit.t;
@@ -216,19 +238,22 @@ public:
         if(iPart >= 64) {
             return false;
         }
-        for(int j = iPart; j < windowHeight; j+=64) {
+        
+        for(int j = iPart; j < windowHeight; j++) {
             for(int i = 0; i < windowWidth; i++) {
-                float ndcX = (2.0 * i - windowWidth) / windowWidth;
-                float ndcY = (2.0 * j - windowHeight) / windowHeight;
-                Ray ray1 = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
-                Ray ray2 = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
-                Ray ray3 = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
-                Ray ray4 = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
-                
-                image[j*windowWidth + i] = scene.trace((ray1 + ray2 + ray3 + ray4) / 4, 0);
+                vec3 rayAvg = vec3();
+                for(int k = -1; k < 1; k++){
+                    for (int t = -1; t < 1; t++) {
+                        float ndcX = (2.0 * i - windowWidth + k) / windowWidth;
+                        float ndcY = (2.0 * j - windowHeight + t) / windowHeight;
+                        Ray ray = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
+                        vec3 currentValue = scene.trace(ray, 0);
+                        rayAvg += currentValue;
+                    }
+                }
+                image[j*windowWidth + i] = rayAvg * 0.25;
             }
         }
-        iPart++;
         return true;
     }
 };
@@ -315,7 +340,7 @@ int main(int argc, char * argv[]) {
     glutInitWindowSize(windowWidth, windowHeight);              
     glutInitWindowPosition(100, 100);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_3_2_CORE_PROFILE);
-    glutCreateWindow("Liwei and Heidi's masterpieces");
+    glutCreateWindow("Liwei and Heidi's Masterpieces");
 
     glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
     glGetIntegerv(GL_MINOR_VERSION, &minorVersion);

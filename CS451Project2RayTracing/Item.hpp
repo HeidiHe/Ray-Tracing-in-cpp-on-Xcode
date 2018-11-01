@@ -55,7 +55,7 @@ public:
     std::vector<Intersectable*> getObjects();
 };
 
-//queen
+//Queen
 class Queen: public Item{
     ClippedQuadric body;
     ClippedQuadric gown;
