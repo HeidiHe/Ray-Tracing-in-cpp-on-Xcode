@@ -20,7 +20,7 @@ public:
 };
 
 /* DirectionalLight class */
-class DirectionalLight : public LightSource{
+class DirectionalLight : public LightSource {
     vec3 p; // power density
     vec3 l; // light direction
 public:
