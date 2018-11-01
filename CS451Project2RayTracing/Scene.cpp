@@ -17,7 +17,8 @@
 #include "Item.hpp"
 
 
-const unsigned int windowWidth = 512, windowHeight = 512;
+//const unsigned int windowWidth = 512, windowHeight = 512;
+const unsigned int windowWidth = 720, windowHeight = 720;
 bool keyboardState[256];
 int majorVersion = 3, minorVersion = 0;
 
@@ -83,12 +84,12 @@ public:
 //                          hyperboloid(1.5, mat4x4::translation(vec3(0,0.2,0)))->transform(mat4x4::scaling(vec3(0.1, 0.5, 0.1))*mat4x4::translation(vec3(-4, -0.75, -0.8))));//half hyperboliod
 
         //cone ->7
-//        objects.push_back((new ClippedQuadric(materials[8]))->
-//                          cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.7, 0.5))*mat4x4::translation(vec3(-4, 0.4, -1.5))));
-//        objects.push_back((new ClippedQuadric(materials[8]))->
-//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.06, 0.25, 0.06))*mat4x4::translation(vec3(-4, 0.4, -1.5))));//small cylinder attaching to the cone
-//        objects.push_back((new ClippedQuadric(materials[2]))->
-//                          cylinder(1)->transform(mat4x4::scaling(vec3(0.47, 0.8, 0.47))*mat4x4::translation(vec3(-4, -0.7, -1.5)))); //large cylinder attaching to the cone
+        objects.push_back((new ClippedQuadric(materials[8]))->
+                          cone(1)->transform(mat4x4::scaling(vec3(0.5, 0.7, 0.5))*mat4x4::translation(vec3(-4, 0.4, -1.5))));
+        objects.push_back((new ClippedQuadric(materials[8]))->
+                          cylinder(1)->transform(mat4x4::scaling(vec3(0.06, 0.25, 0.06))*mat4x4::translation(vec3(-4, 0.4, -1.5))));//small cylinder attaching to the cone
+        objects.push_back((new ClippedQuadric(materials[2]))->
+                          cylinder(1)->transform(mat4x4::scaling(vec3(0.47, 0.8, 0.47))*mat4x4::translation(vec3(-4, -0.7, -1.5)))); //large cylinder attaching to the cone
 
         objects.push_back((new Quadric(materials[4]))->sphere()->transform(mat4x4::scaling(vec3(0.5, 0.5, 0.5))*mat4x4::translation(vec3(-2, 0, -1.5))));
         
@@ -246,7 +247,6 @@ Scene scene;
 
 
 
-
 class FrameBuffer {
     unsigned int textureId;
     vec3 image[windowWidth * windowHeight];
@@ -275,23 +275,29 @@ public:
     bool ComputeImage()
     {
         static unsigned int iPart = 0;
-
-        if(iPart >= 64)
-            return false;
-        for(int j = iPart; j < windowHeight; j+=64)
-        {
-            for(int i = 0; i < windowWidth; i++)
+        
+            for(int j = iPart; j < windowHeight; j++)
             {
-                float ndcX = (2.0 * i - windowWidth) / windowWidth;
-                float ndcY = (2.0 * j - windowHeight) / windowHeight;
-//              Camera& camera = scene.getCamera();
-                Ray ray = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
-            
-                image[j*windowWidth + i] = scene.trace(ray,0);
+                for(int i = 0; i < windowWidth; i++)
+                {
+                    vec3 rayAvg = vec3();
+                    for( int k = -1; k < 3; k++){
+    
+                        float ndcX = (2.0 * i - windowWidth + k) / windowWidth;
+                        float ndcY = (2.0 * j - windowHeight + k) / windowHeight;
+                        //              Camera& camera = scene.getCamera();
+                        Ray ray = Ray(camera.getEye(), camera.rayDirFromNdc(ndcX, ndcY));
+                        vec3 currentValue = scene.trace(ray,0);
+                        rayAvg += currentValue;
+                    }
+    
+                    image[j*windowWidth + i] = rayAvg*0.2;
+                }
             }
-        }
-        iPart++;
+        
         return true;
+        
+        
     }
 };
 
